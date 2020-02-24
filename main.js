@@ -1,26 +1,41 @@
 // Modules to control application life and create native browser window
-const {app, BrowserWindow, Tray} = require('electron')
+const {app, BrowserWindow, Tray, screen} = require('electron')
 const path = require('path')
+const os = require('os')
 
 let tray = null;
 
 function createWindow () {
   // Create the browser window.
+  const windowWidth = 400
+  const windowHeight = 500
+
   const mainWindow = new BrowserWindow({
-    width: 800,
-    height: 600,
+    width: windowWidth,
+    height: windowHeight,
     show: false,
+    frame: false,
+    resizable: false,
     webPreferences: {
       preload: path.join(__dirname, 'preload.js')
     }
   })
 
   tray = new Tray('./assets/icon.png')
-  
+
   tray.setToolTip("Click to access Clipper")
 
   // and load the index.html of the app.
   mainWindow.loadFile('index.html')
+
+  const { y } = tray.getBounds()
+  const { width } = screen.getPrimaryDisplay().workAreaSize
+
+  if(os.platform() === "win32") {
+    mainWindow.setPosition(width - windowWidth, y - windowHeight)
+  } else {
+    mainWindow.setPosition(width - windowWidth, y)
+  }
 
   tray.on('click', () => {
     mainWindow.isVisible() ? mainWindow.hide() : mainWindow.show()
