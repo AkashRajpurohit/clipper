@@ -1,0 +1,20 @@
+{
+  "name": "clipper",
+  "version": "1.0.0",
+  "description": "Save history of all information you copy and use them whenever with a solitary snap",
+  "main": "main.js",
+  "scripts": {
+    "start": "electron ."
+  },
+  "repository": "https://github.com/AkashRajpurohit/clipper",
+  "keywords": [
+    "Electron",
+    "Clipper",
+    "Copy to clipboard"
+  ],
+  "author": "Akash Rajpurohit",
+  "license": "MIT",
+  "devDependencies": {
+    "electron": "^8.0.1"
+  }
+}
