@@ -3,12 +3,36 @@ const {app, BrowserWindow, Tray, screen} = require('electron')
 const path = require('path')
 const os = require('os')
 
-let tray = null;
+let tray = null
+const windowWidth = 400
+const windowHeight = 500
+
+function setWindowPosition(mainWindow) {
+  const { x, y } = tray.getBounds()
+  const { width } = screen.getPrimaryDisplay().workAreaSize
+  
+  let windowX, windowY
+
+  // Set window X position based on the position of the tray icon
+  if(Math.abs(x - width) < windowWidth) {
+    windowX = width - windowWidth
+  } else {
+    windowX = x
+  }
+
+  // Set window Y position based on the platform
+  if(os.platform() === "win32") {
+    windowY = y - windowHeight
+  } else {
+    windowY = y
+  }
+
+  // Set window position
+  mainWindow.setPosition(windowX, windowY)
+}
 
 function createWindow () {
   // Create the browser window.
-  const windowWidth = 400
-  const windowHeight = 500
 
   const mainWindow = new BrowserWindow({
     width: windowWidth,
@@ -28,14 +52,7 @@ function createWindow () {
   // and load the index.html of the app.
   mainWindow.loadFile('index.html')
 
-  const { y } = tray.getBounds()
-  const { width } = screen.getPrimaryDisplay().workAreaSize
-
-  if(os.platform() === "win32") {
-    mainWindow.setPosition(width - windowWidth, y - windowHeight)
-  } else {
-    mainWindow.setPosition(width - windowWidth, y)
-  }
+  setWindowPosition(mainWindow)
 
   tray.on('click', () => {
     mainWindow.isVisible() ? mainWindow.hide() : mainWindow.show()
