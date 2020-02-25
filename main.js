@@ -1,5 +1,5 @@
 // Modules to control application life and create native browser window
-const {app, BrowserWindow, Tray, screen} = require('electron')
+const { app, BrowserWindow, Tray, screen, globalShortcut } = require('electron')
 const path = require('path')
 const os = require('os')
 
@@ -10,18 +10,18 @@ const windowHeight = 500
 function setWindowPosition(mainWindow) {
   const { x, y } = tray.getBounds()
   const { width } = screen.getPrimaryDisplay().workAreaSize
-  
+
   let windowX, windowY
 
   // Set window X position based on the position of the tray icon
-  if(Math.abs(x - width) < windowWidth) {
+  if (Math.abs(x - width) < windowWidth) {
     windowX = width - windowWidth
   } else {
     windowX = x
   }
 
   // Set window Y position based on the platform
-  if(os.platform() === "win32") {
+  if (os.platform() === "win32") {
     windowY = y - windowHeight
   } else {
     windowY = y
@@ -31,7 +31,7 @@ function setWindowPosition(mainWindow) {
   mainWindow.setPosition(windowX, windowY)
 }
 
-function createWindow () {
+function createWindow() {
   // Create the browser window.
 
   const mainWindow = new BrowserWindow({
@@ -65,13 +65,24 @@ function createWindow () {
 // This method will be called when Electron has finished
 // initialization and is ready to create browser windows.
 // Some APIs can only be used after this event occurs.
-app.on('ready', createWindow)
+app.on('ready', () => {
+  createWindow()
+
+  globalShortcut.register("CommandOrControl + Q", () => {
+    console.log("Copied")
+  })
+})
 
 // Quit when all windows are closed.
 app.on('window-all-closed', function () {
   // On macOS it is common for applications and their menu bar
   // to stay active until the user quits explicitly with Cmd + Q
   if (process.platform !== 'darwin') app.quit()
+})
+
+app.on('will-quit', () => {
+  // Unregister all shortcuts.
+  globalShortcut.unregisterAll()
 })
 
 app.on('activate', function () {
