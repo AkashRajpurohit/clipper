@@ -24,6 +24,10 @@ class Clipper extends React.Component {
         window.localStorage.setItem('clipper', JSON.stringify(historyFromLocalstorage))
     }
 
+    textClicked = (e) => {
+        window.copyToClipboard(e.currentTarget.dataset.text)
+    }
+
     componentWillMount() {
         // Get All previously added histories
         this.state.history = this.loadHistory()
@@ -53,7 +57,11 @@ class Clipper extends React.Component {
                 <ul>
                     {
                         this.state.history.map(text => {
-                            return (<li key={text}>{text}</li>)
+                            return (
+                                <li data-text={text} key={text} onClick={this.textClicked}>
+                                    {text}
+                                </li>
+                            )
                         })
                     }
                 </ul>

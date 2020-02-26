@@ -6,6 +6,10 @@ const init = () => {
     window.checkClipboard = () => {
         return remote.clipboard.readText();
     }
+
+    window.copyToClipboard = (text) => {
+        remote.clipboard.writeText(text)
+    }
 }
 
 init()
