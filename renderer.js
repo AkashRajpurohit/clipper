@@ -1,3 +1,5 @@
+const audio = new Audio('./assets/sound/beep.mp3')
+
 class Clipper extends React.Component {
   constructor(props) {
     super(props)
@@ -61,6 +63,9 @@ class Clipper extends React.Component {
         })
 
         this.updateLocalstorage()
+
+        audio.currentTime = 0
+        audio.play()
       }
     }, 1000)
   }
