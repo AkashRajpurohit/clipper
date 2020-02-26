@@ -1,0 +1,19 @@
+body {
+    background-color: rgb(231, 230, 230);
+}
+
+.m-tb {
+    margin: 10px auto !important;
+}
+
+.p-tb {
+    padding: 10px auto !important;
+}
+
+.no-border {
+    border: none !important;
+}
+
+.clickable {
+    cursor: pointer;
+}

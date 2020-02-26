@@ -75,22 +75,31 @@ class Clipper extends React.Component {
     clearInterval(this.state.interval)
   }
 
+  handleFooterClick = () => {
+    console.log('clicked')
+  }
+
   render() {
     return (
-      <div>
-        <h1>Clipper! 📋</h1>
-        <p>{this.state.history.length}</p>
-        <ul>
+      <div className="container m-tb">
+        <h1 className="center-align">Clipper! 📋</h1>
+        <ul className="collection no-border">
           {
             this.state.history.map(({ id, text }) => {
               return (
-                <li data-text={text} key={id} onClick={this.textClicked}>
+                <li className="collection-item hoverable clickable m-tb" data-text={text} key={id} onClick={this.textClicked}>
                   {text}
                 </li>
               )
             })
           }
         </ul>
+        <div className="footer-copyright p-tb">
+          <div className="container">
+          © 2020 Clipper
+          <span className="black-text text-darken-4 right clickable" onClick={this.handleFooterClick}>Akash Rajpurohit</span>
+          </div>
+        </div>
       </div>
     );
   }
