@@ -15,10 +15,10 @@ class Clipper extends React.Component {
     }
 
     addHistoryToLocalstorage = (text) => {
-        const historyFromLocalstorage = JSON.parse(window.localStorage.getItem('clipper')) || []
+        let historyFromLocalstorage = JSON.parse(window.localStorage.getItem('clipper')) || []
 
         // Add new text to localstorage
-        historyFromLocalstorage.push(text)
+        historyFromLocalstorage = [text, ...historyFromLocalstorage]
 
         // Save updated history to localstorage
         window.localStorage.setItem('clipper', JSON.stringify(historyFromLocalstorage))
@@ -36,11 +36,13 @@ class Clipper extends React.Component {
         this.state.interval = setInterval(() => {
             const text = window.checkClipboard()
 
-            // Check is last added text is same as new text or not
-            if(this.state.history[this.state.history.length - 1] !== text) {
+            // Check is first text is same as new text or not
+            if(this.state.history[0] !== text) {
                 // Add this text to history
-                this.setState({ history: [ ...this.state.history, text ]})
+                this.setState({ history: [ text, ...this.state.history ]})
                 this.addHistoryToLocalstorage(text)
+
+                console.log(this.state.history)
             }
         }, 1000)
     }
