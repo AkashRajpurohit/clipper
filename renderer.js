@@ -1,23 +1,65 @@
-const Clipper = () => {
-    const [clipboard, setClipboard] = React.useState([])
+class Clipper extends React.Component {
+    constructor(props) {
+        super(props)
+        this.state = {
+            history: [],
+            interval: -1
+        }
+    }
 
-    React.useEffect(() => {
-        // Get mock data for now
-        // TODO: Bring data from localstorage
+    loadHistory = () => {
+        // Get all history from localstorage
+        const historyFromLocalstorage = JSON.parse(window.localStorage.getItem('clipper')) || []
 
-        setClipboard(["Hello", "World"])
-    }, [])
-    return (
-        <div>
-            <h1>Clipper! 📋</h1>
+        return historyFromLocalstorage
+    }
 
-            <ul>
-                {clipboard.map(text => {
-                    return (<li key={text}>{text}</li>)
-                })}
-            </ul>
-        </div>
-    );
+    addHistoryToLocalstorage = (text) => {
+        const historyFromLocalstorage = JSON.parse(window.localStorage.getItem('clipper')) || []
+
+        // Add new text to localstorage
+        historyFromLocalstorage.push(text)
+
+        // Save updated history to localstorage
+        window.localStorage.setItem('clipper', JSON.stringify(historyFromLocalstorage))
+    }
+
+    componentWillMount() {
+        // Get All previously added histories
+        this.state.history = this.loadHistory()
+
+        // Start listening for new texts
+        this.state.interval = setInterval(() => {
+            const text = window.checkClipboard()
+
+            // Check is last added text is same as new text or not
+            if(this.state.history[this.state.history.length - 1] !== text) {
+                // Add this text to history
+                this.setState({ history: [ ...this.state.history, text ]})
+                this.addHistoryToLocalstorage(text)
+            }
+        }, 1000)
+    }
+
+    componentWillUnmount() {
+        clearInterval(this.state.interval)
+    }
+
+    render() {
+        return (
+            <div>
+                <h1>Clipper! 📋</h1>
+                <p>{this.state.history.length}</p>
+                <ul>
+                    {
+                        this.state.history.map(text => {
+                            return (<li key={text}>{text}</li>)
+                        })
+                    }
+                </ul>
+            </div>
+        );
+    }
 }
 
 ReactDOM.render(
