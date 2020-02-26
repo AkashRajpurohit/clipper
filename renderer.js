@@ -76,7 +76,7 @@ class Clipper extends React.Component {
   }
 
   handleFooterClick = () => {
-    console.log('clicked')
+    window.openExternalUrl('https://akashwho.codes')
   }
 
   render() {
@@ -96,7 +96,7 @@ class Clipper extends React.Component {
         </ul>
         <div className="footer-copyright p-tb">
           <div className="container">
-          © 2020 Clipper
+          © { new Date().getFullYear() } Clipper
           <span className="black-text text-darken-4 right clickable" onClick={this.handleFooterClick}>Akash Rajpurohit</span>
           </div>
         </div>
