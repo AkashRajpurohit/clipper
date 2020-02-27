@@ -3,16 +3,18 @@ const {
   app, 
   BrowserWindow, 
   Tray, 
-  screen
+  screen,
+  ipcMain
 } = require('electron')
 const path = require('path')
 const os = require('os')
 
 let tray = null
+let mainWindow = null
 const windowWidth = 400
 const windowHeight = 500
 
-function setWindowPosition(mainWindow) {
+function setWindowPosition() {
   const { x, y } = tray.getBounds()
   const { width } = screen.getPrimaryDisplay().workAreaSize
 
@@ -39,7 +41,7 @@ function setWindowPosition(mainWindow) {
 function createWindow() {
   // Create the browser window.
 
-  const mainWindow = new BrowserWindow({
+  mainWindow = new BrowserWindow({
     width: windowWidth,
     height: windowHeight,
     show: false,
@@ -57,7 +59,7 @@ function createWindow() {
   // and load the index.html of the app.
   mainWindow.loadFile('index.html')
 
-  setWindowPosition(mainWindow)
+  setWindowPosition()
 
   tray.on('click', () => {
     mainWindow.isVisible() ? mainWindow.hide() : mainWindow.show()
@@ -70,7 +72,11 @@ function createWindow() {
 // This method will be called when Electron has finished
 // initialization and is ready to create browser windows.
 // Some APIs can only be used after this event occurs.
-app.on('ready', createWindow)
+app.on('ready', () => {
+  createWindow()
+  // Set App ID for notifications
+  app.setAppUserModelId('com.akash.clipper-desktop')
+})
 
 // Quit when all windows are closed.
 app.on('window-all-closed', function () {
@@ -83,6 +89,21 @@ app.on('activate', function () {
   // On macOS it's common to re-create a window in the app when the
   // dock icon is clicked and there are no other windows open.
   if (BrowserWindow.getAllWindows().length === 0) createWindow()
+})
+
+// Listen for 'open-main-window' event from renderer process
+ipcMain.on('open-main-window', () => {
+  if(!mainWindow.isVisible()) {
+    // Show the main window
+    mainWindow.show()
+  } else {
+    // Hide it and show it again
+    // Doing this so that if it is overlapped
+    // by some other app then it will show on
+    // top again
+    mainWindow.hide()
+    mainWindow.show()
+  }
 })
 
 // In this file you can include the rest of your app's specific main process

@@ -6,7 +6,8 @@ class Clipper extends React.Component {
     super(props)
     this.state = {
       history: [],
-      interval: -1
+      interval: -1,
+      showStorageExceedToast: false
     }
   }
 
@@ -30,6 +31,10 @@ class Clipper extends React.Component {
     window.localStorage.setItem('clipper', JSON.stringify(this.state.history))
   }
 
+  setLastCopiedText = (text) => window.localStorage.setItem('clipper:last-copied', text)
+
+  getLastCopiedText = () => window.localStorage.getItem('clipper:last-copied')
+
   textClicked = (e) => {
     const { text } = e.currentTarget.dataset
 
@@ -50,11 +55,40 @@ class Clipper extends React.Component {
       const text = window.checkClipboard().trim()
 
       // Don't process for empty string
-      if(text.trim() === "") return
+      if (text.trim() === "") {
+        // Clear the clipboard
+        window.clearClipboard()
+        return
+      }
+
+      // Check if showStorageExceedToast is set to true or not
+      if (this.state.showStorageExceedToast) {
+        // Open the main window if its is closed
+        window.openMainWindow()
+
+        M.toast({ html: 'Your storage limit is exceeded!' })
+
+        // reset it to false so that it doesn't repeat again and again
+        this.setState({ showStorageExceedToast: false })
+
+        return
+      }
+
+      // Don't show notification if the same text is being copied
+      if (this.getLastCopiedText() === text) {
+        return
+      }
+
+      // Sync with last copied text in storage
+      this.setLastCopiedText(text)
 
       // Limit the max storage limit
-      // TODO: Show toast or system notification when storage limit is exceeded
-      if(this.state.history.length >= storageLimit) return
+      if (this.state.history.length >= storageLimit) {
+        // Set the toast condition to true so that
+        // it triggers the condition above in next interval
+        this.setState({ showStorageExceedToast: true })
+        return
+      }
 
       // Check if this text is already in the clipboard history
       const isAlreadyInHistory = this.state.history
@@ -69,10 +103,12 @@ class Clipper extends React.Component {
             text
           },
           ...this.state.history]
+        }, () => {
+          // Sync with storage
+          this.updateLocalstorage()
         })
 
-        this.updateLocalstorage()
-
+        // Play beep!!
         audio.currentTime = 0
         audio.play()
       }
@@ -97,13 +133,15 @@ class Clipper extends React.Component {
   }
 
   handleClearStorage = () => {
+    // Reset the state
+    this.setState({ history: [] }, () => {
+
+      // Reset the storage
+      this.updateLocalstorage()
+    })
+
     // Remove the contents from clipboard
     window.clearClipboard()
-
-    // Reset the state
-    this.setState({ history: [] })
-    // Reset the storage
-    this.updateLocalstorage()
   }
 
   render() {
@@ -126,11 +164,11 @@ class Clipper extends React.Component {
           }
         </ul>
         <div className="footer-copyright p-tb">
-          © { 
-            new Date().getFullYear() == "2020" 
-              ? "2020" 
-              : "2020 - " + new Date().getFullYear() 
-            } • Clipper
+          © {
+            new Date().getFullYear() == "2020"
+              ? "2020"
+              : "2020 - " + new Date().getFullYear()
+          } • Clipper
           <span className="black-text text-darken-4 right clickable" onClick={this.handleFooterClick}>With 💖 Akash Rajpurohit</span>
         </div>
       </div>

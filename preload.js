@@ -1,6 +1,6 @@
 // All of the Node.js APIs are available in the preload process.
 // It has the same sandbox as a Chrome extension.
-const { remote, shell } = require('electron')
+const { remote, ipcRenderer } = require('electron')
 
 const init = () => {
     window.checkClipboard = () => {
@@ -12,11 +12,15 @@ const init = () => {
     }
 
     window.openExternalUrl = (url) => {
-        shell.openExternal(url)
+        remote.shell.openExternal(url)
     }
 
     window.clearClipboard = () => {
         remote.clipboard.clear()
+    }
+
+    window.openMainWindow = () => {
+        ipcRenderer.send('open-main-window')
     }
 }
 

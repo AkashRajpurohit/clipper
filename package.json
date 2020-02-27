@@ -6,6 +6,9 @@
   "scripts": {
     "start": "electron ."
   },
+  "build": {
+    "appId": "com.akash.clipper-desktop"
+  },
   "repository": "https://github.com/AkashRajpurohit/clipper",
   "keywords": [
     "Electron",
@@ -18,3 +21,4 @@
     "electron": "^8.0.1"
   }
 }
+ 
