@@ -90,6 +90,10 @@ class Clipper extends React.Component {
     return (
       <div className="container m-tb">
         <h1 className="center-align">Clipper! 📋</h1>
+        <div className="information">
+          <span className="waves-effect waves-light red darken-4 btn"><i class="material-icons right">delete_forever</i>Clear</span>
+          <h6>Storage Limit: {this.state.history.length} / 100</h6>
+        </div>
         <ul className="collection no-border">
           {
             this.state.history.map(({ id, text }) => {
