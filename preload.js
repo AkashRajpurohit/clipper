@@ -14,6 +14,10 @@ const init = () => {
     window.openExternalUrl = (url) => {
         shell.openExternal(url)
     }
+
+    window.clearClipboard = () => {
+        remote.clipboard.clear()
+    }
 }
 
 init()

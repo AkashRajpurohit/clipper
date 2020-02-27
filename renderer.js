@@ -1,4 +1,5 @@
 const audio = new Audio('./assets/sound/beep.mp3')
+const storageLimit = 100
 
 class Clipper extends React.Component {
   constructor(props) {
@@ -43,16 +44,17 @@ class Clipper extends React.Component {
     window.copyToClipboard(e.currentTarget.dataset.text)
   }
 
-  componentWillMount() {
-    // Get All previously added histories
-    this.state.history = this.loadHistory()
-
+  startClipboardWatch = () => {
     // Start listening for new texts
     this.state.interval = setInterval(() => {
       const text = window.checkClipboard().trim()
 
       // Don't process for empty string
       if(text.trim() === "") return
+
+      // Limit the max storage limit
+      // TODO: Show toast or system notification when storage limit is exceeded
+      if(this.state.history.length >= storageLimit) return
 
       // Check if this text is already in the clipboard history
       const isAlreadyInHistory = this.state.history
@@ -77,6 +79,14 @@ class Clipper extends React.Component {
     }, 1000)
   }
 
+  componentWillMount() {
+    // Get All previously added histories
+    this.state.history = this.loadHistory()
+
+    // Start the watcher
+    this.startClipboardWatch()
+  }
+
   componentWillUnmount() {
     // Clear the interval
     clearInterval(this.state.interval)
@@ -86,13 +96,23 @@ class Clipper extends React.Component {
     window.openExternalUrl('https://akashwho.codes')
   }
 
+  handleClearStorage = () => {
+    // Remove the contents from clipboard
+    window.clearClipboard()
+
+    // Reset the state
+    this.setState({ history: [] })
+    // Reset the storage
+    this.updateLocalstorage()
+  }
+
   render() {
     return (
       <div className="container m-tb">
         <h1 className="center-align">Clipper! 📋</h1>
         <div className="information">
-          <span className="waves-effect waves-light red darken-4 btn"><i class="material-icons right">delete_forever</i>Clear</span>
-          <h6>Storage Limit: {this.state.history.length} / 100</h6>
+          <span onClick={this.handleClearStorage} className="waves-effect waves-light red darken-4 btn"><i class="material-icons right">delete_forever</i>Clear</span>
+          <h6>Storage Limit: <b>{this.state.history.length} / {storageLimit}</b></h6>
         </div>
         <ul className="collection no-border">
           {
