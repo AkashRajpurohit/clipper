@@ -1,5 +1,5 @@
 const audio = new Audio('./assets/sound/beep.mp3')
-const storageLimit = 100
+const storageLimit = 20
 
 class Clipper extends React.Component {
   constructor(props) {
