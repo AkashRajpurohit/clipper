@@ -9,10 +9,10 @@ class Clipper extends React.Component {
     }
   }
 
-  getNewItemId = (array) => {
-    if (array.length === 0) return 1
+  getNewItemId = () => {
+    if (this.state.history.length === 0) return 1
 
-    return array[0].id + 1
+    return this.state.history[0].id + 1
   }
 
   loadHistory = () => {
@@ -49,14 +49,21 @@ class Clipper extends React.Component {
 
     // Start listening for new texts
     this.state.interval = setInterval(() => {
-      const text = window.checkClipboard()
+      const text = window.checkClipboard().trim()
 
-      // Check is first text is same as new text or not
-      if (this.state.history.length === 0 || this.state.history[0].text !== text) {
+      // Don't process for empty string
+      if(text.trim() === "") return
+
+      // Check if this text is already in the clipboard history
+      const isAlreadyInHistory = this.state.history
+        .findIndex(({ text: historyText }) => historyText === text) !== -1
+
+      // Check the condition
+      if (this.state.history.length === 0 || !isAlreadyInHistory) {
         // Add this text to history
         this.setState({
           history: [{
-            id: this.getNewItemId(this.state.history),
+            id: this.getNewItemId(),
             text
           },
           ...this.state.history]
@@ -95,10 +102,12 @@ class Clipper extends React.Component {
           }
         </ul>
         <div className="footer-copyright p-tb">
-          <div className="container">
-          © { new Date().getFullYear() } Clipper
-          <span className="black-text text-darken-4 right clickable" onClick={this.handleFooterClick}>Akash Rajpurohit</span>
-          </div>
+          © { 
+            new Date().getFullYear() == "2020" 
+              ? "2020" 
+              : "2020 - " + new Date().getFullYear() 
+            } • Clipper
+          <span className="black-text text-darken-4 right clickable" onClick={this.handleFooterClick}>With 💖 Akash Rajpurohit</span>
         </div>
       </div>
     );
