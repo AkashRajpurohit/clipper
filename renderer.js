@@ -152,18 +152,22 @@ class Clipper extends React.Component {
           <span onClick={this.handleClearStorage} className="waves-effect waves-light red darken-4 btn"><i class="material-icons right">delete_forever</i>Clear</span>
           <h6>Storage Limit: <b>{this.state.history.length} / {storageLimit}</b></h6>
         </div>
-        <ul className="collection no-border">
-          {
-            this.state.history.map(({ id, text }) => {
-              return (
-                <li className="collection-item hoverable clickable m-tb" data-text={text} key={id} onClick={this.textClicked}>
-                  {text}
-                </li>
-              )
-            })
-          }
-        </ul>
-        <div className="footer-copyright p-tb">
+        {this.state.history.length > 0
+          ? <ul className="collection no-border">
+            {
+              this.state.history.map(({ id, text }) => {
+                return (
+                  <li className="collection-item hoverable clickable m-tb" data-text={text} key={id} onClick={this.textClicked}>
+                    <div>{text}<span className="secondary-content red darken-4 btn"><i class="material-icons">delete</i></span></div>
+                  </li>
+                )
+              })
+            }
+          </ul>
+          : <div className="center-align m-tb30">
+            <img height="200" width="200" src="./assets/no_data.svg" alt="no data" />
+          </div>}
+        <div className="footer-copyright">
           © {
             new Date().getFullYear() == "2020"
               ? "2020"
