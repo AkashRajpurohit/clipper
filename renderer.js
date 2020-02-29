@@ -1,4 +1,4 @@
-const audio = new Audio('./assets/sound/beep.mp3')
+const successAudio = new Audio('./assets/sound/success.mp3')
 const storageLimit = 20
 const maxCharsThatCanBeCopied = 500
 
@@ -10,6 +10,11 @@ class Clipper extends React.Component {
       interval: -1,
       showStorageExceedToast: false
     }
+  }
+
+  playSuccessAudio = () => {
+    successAudio.currentTime = 0
+    successAudio.play()
   }
 
   getNewItemId = () => {
@@ -105,9 +110,7 @@ class Clipper extends React.Component {
           this.updateLocalstorage()
         })
 
-        // Play beep!!
-        audio.currentTime = 0
-        audio.play()
+        this.playSuccessAudio()
       }
     }, 500)
   }
