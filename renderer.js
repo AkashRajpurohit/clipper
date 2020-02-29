@@ -1,5 +1,6 @@
 const successAudio = new Audio('./assets/sound/success.mp3')
 const errorAudio = new Audio('./assets/sound/error.mp3')
+const trashAudio = new Audio('./assets/sound/trash.mp3')
 const storageLimit = 20
 const maxCharsThatCanBeCopied = 500
 
@@ -21,6 +22,11 @@ class Clipper extends React.Component {
   playErrorAudio = () => {
     errorAudio.currentTime = 0
     errorAudio.play()
+  }
+
+  playTrashAudio = () => {
+    trashAudio.currentTime = 0
+    trashAudio.play()
   }
 
   getNewItemId = () => {
@@ -61,7 +67,7 @@ class Clipper extends React.Component {
       if (this.state.showStorageExceedToast) {
         // Play error audio
         this.playErrorAudio()
-        
+
         // Open the main window if its is closed
         window.openMainWindow()
 
@@ -180,6 +186,9 @@ class Clipper extends React.Component {
   }
 
   handleClearStorage = () => {
+    // Play trash audio
+    this.playTrashAudio()
+    
     // Reset the state
     this.setState({ history: [] }, () => {
 
