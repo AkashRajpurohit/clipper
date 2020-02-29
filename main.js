@@ -93,10 +93,13 @@ app.on('activate', function () {
 
 // Listen for 'open-main-window' event from renderer process
 ipcMain.on('open-main-window', () => {
-  if(!mainWindow.isVisible()) {
-    // Show the main window
-    mainWindow.show()
-  }
+  // Set always on top to true so that
+  // mainwindow can be viewed on top of other apps
+  mainWindow.setAlwaysOnTop(true)
+  // Show the window now
+  mainWindow.show()
+  // Reset the always on top property
+  mainWindow.setAlwaysOnTop(false)
 })
 
 // In this file you can include the rest of your app's specific main process
