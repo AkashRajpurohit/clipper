@@ -10,23 +10,30 @@ class Clipper extends React.Component {
     this.state = {
       history: [],
       interval: -1,
-      showStorageExceedToast: false
+      showStorageExceedToast: false,
+      enableAudio: true
     }
   }
 
   playSuccessAudio = () => {
-    successAudio.currentTime = 0
-    successAudio.play()
+    if(this.state.enableAudio) {
+      successAudio.currentTime = 0
+      successAudio.play()
+    }
   }
 
   playErrorAudio = () => {
-    errorAudio.currentTime = 0
-    errorAudio.play()
+    if(this.state.enableAudio) {
+      errorAudio.currentTime = 0
+      errorAudio.play()
+    }
   }
 
   playTrashAudio = () => {
-    trashAudio.currentTime = 0
-    trashAudio.play()
+    if(this.state.enableAudio) {
+      trashAudio.currentTime = 0
+      trashAudio.play()
+    }
   }
 
   getNewItemId = () => {
@@ -185,6 +192,16 @@ class Clipper extends React.Component {
     window.openExternalUrl('https://akashwho.codes')
   }
 
+  handleModalClick = () => {
+    const elem = document.querySelector('#settings-modal')
+    const instance = M.Modal.init(elem)
+    instance.open()
+  }
+
+  handleAudioSwitch = () => {
+    this.setState((prevState) => ({ enableAudio: !prevState.enableAudio }))
+  }
+
   handleClearStorage = () => {
     // Play trash audio
     this.playTrashAudio()
@@ -209,6 +226,7 @@ class Clipper extends React.Component {
         <h1 className="center-align">Clipper! 📋</h1>
         <div className="information">
           <span onClick={this.handleClearStorage} className="waves-effect waves-light red darken-4 btn"><i class="material-icons right">delete_forever</i>Clear</span>
+          <span onClick={this.handleModalClick} className="waves-effect waves-light modal-trigger btn" ><i className="material-icons">settings</i></span>
           <h6>Storage Limit: <b>{this.state.history.length} / {storageLimit}</b></h6>
         </div>
         {this.state.history.length > 0
@@ -229,6 +247,26 @@ class Clipper extends React.Component {
           : <div className="center-align m-tb30">
             <img height="200" width="200" src="./assets/no_data.svg" alt="no data" />
           </div>}
+
+          <div id="settings-modal" className="modal bottom-sheet">
+            <div className="modal-content">
+              <h4>Settings</h4>
+              <div className="switch">
+                <span>Enable Audio</span>&nbsp;&nbsp;
+                <label>
+                  <input type="checkbox" checked={this.state.enableAudio} onChange={this.handleAudioSwitch}  />
+                  <span className="lever"></span>
+                </label>
+              </div>
+              <br />
+              <br />
+              <div className="divider"></div>
+                <p><b>Note: </b>You can save text of maximum {maxCharsThatCanBeCopied} only.</p>
+            </div>
+            <div className="modal-footer">
+              <a href="#!" className="modal-close waves-effect waves-green btn-flat">Close</a>
+            </div>
+          </div>
         <div className="footer-copyright">
           © {
             new Date().getFullYear() == "2020"
