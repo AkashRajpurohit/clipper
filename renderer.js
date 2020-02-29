@@ -194,7 +194,12 @@ class Clipper extends React.Component {
             {
               this.state.history.map(({ id, text }) => {
                 return (
-                  <li key={id} data-text={text} className="collection-item hoverable m-tb" onClick={this.handleTextClick}><div>{text}<a onClick={(e) => this.handleDeleteSingleText(e, id)} className="secondary-content red-text text-darken-3"><i class="material-icons">delete</i></a></div></li>
+                  <div className="collection-item__div">
+                    <li key={id} data-text={text} className="collection-item hoverable m-tb" onClick={this.handleTextClick}><div>{text}</div></li>
+                    <div className="collection-item__options">
+                      <a onClick={(e) => this.handleDeleteSingleText(e, id)} className="secondary-content red-text text-darken-3"><i class="material-icons">delete</i></a>
+                    </div>
+                  </div>
                 )
               })
             }

@@ -27,6 +27,20 @@ body {
     justify-content: space-between;
 }
 
+.collection-item__div {
+    display: flex;
+    justify-content: flex-end;
+    flex-wrap: wrap;
+}
+
+.collection-item__div li {
+    width: 100%;
+}
+
+.collection-item__options {
+    display: block;
+}
+
 /* Load Material Fonts */
 @font-face {
     font-family: 'Material Icons';
