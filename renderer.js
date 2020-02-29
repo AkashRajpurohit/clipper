@@ -35,20 +35,6 @@ class Clipper extends React.Component {
 
   getLastCopiedText = () => window.localStorage.getItem('clipper:last-copied')
 
-  textClicked = (e) => {
-    const { text } = e.currentTarget.dataset
-
-    let remainingHistory = this.state.history.filter(item => item.text !== text)
-
-    this.setState({
-      history: [
-        ...remainingHistory
-      ]
-    })
-
-    window.copyToClipboard(e.currentTarget.dataset.text)
-  }
-
   startClipboardWatch = () => {
     // Start listening for new texts
     this.state.interval = setInterval(() => {
@@ -112,7 +98,7 @@ class Clipper extends React.Component {
         audio.currentTime = 0
         audio.play()
       }
-    }, 1000)
+    }, 500)
   }
 
   componentWillMount() {
@@ -126,6 +112,43 @@ class Clipper extends React.Component {
   componentWillUnmount() {
     // Clear the interval
     clearInterval(this.state.interval)
+  }
+
+  handleTextClick = (e) => {
+    // Clear the last copied text to avoid conflicts
+    window.localStorage.removeItem('clipper:last-copied')
+
+    const { text } = e.currentTarget.dataset
+
+    const remainingHistory = this.state.history.filter(item => item.text !== text)
+
+    // Update the state with remaining texts
+    this.setState({
+      history: [
+        ...remainingHistory
+      ]
+    }, () => {
+      this.updateLocalstorage()
+    })
+
+    window.copyToClipboard(e.currentTarget.dataset.text)
+  }
+
+  handleDeleteSingleText = (e, id) => {
+    // Stop event propagation to the main li tag
+    e.stopPropagation()
+
+    const remainingHistory = this.state.history.filter(item => item.id !== id)
+
+    // Update the state with remaining texts
+    this.setState({
+      history: [
+        ...remainingHistory
+      ]
+    }, () => {
+      this.updateLocalstorage()
+    })
+
   }
 
   handleFooterClick = () => {
@@ -142,6 +165,9 @@ class Clipper extends React.Component {
 
     // Remove the contents from clipboard
     window.clearClipboard()
+
+    // Clear the last copied text to avoid conflicts
+    window.localStorage.removeItem('clipper:last-copied')
   }
 
   render() {
@@ -153,13 +179,11 @@ class Clipper extends React.Component {
           <h6>Storage Limit: <b>{this.state.history.length} / {storageLimit}</b></h6>
         </div>
         {this.state.history.length > 0
-          ? <ul className="collection no-border">
+          ? <ul className="collection no-border clickable">
             {
               this.state.history.map(({ id, text }) => {
                 return (
-                  <li className="collection-item hoverable clickable m-tb" data-text={text} key={id} onClick={this.textClicked}>
-                    <div>{text}<span className="secondary-content red darken-4 btn"><i class="material-icons">delete</i></span></div>
-                  </li>
+                  <li key={id} data-text={text} className="collection-item hoverable m-tb" onClick={this.handleTextClick}><div>{text}<a onClick={(e) => this.handleDeleteSingleText(e, id)} className="secondary-content red-text text-darken-3"><i class="material-icons">delete</i></a></div></li>
                 )
               })
             }
