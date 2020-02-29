@@ -261,7 +261,7 @@ class Clipper extends React.Component {
               <br />
               <br />
               <div className="divider"></div>
-                <p><b>Note: </b>You can save text of maximum {maxCharsThatCanBeCopied} only.</p>
+                <p><b>Note: </b>You can save text of maximum {maxCharsThatCanBeCopied} characters only.</p>
             </div>
             <div className="modal-footer">
               <a href="#!" className="modal-close waves-effect waves-green btn-flat">Close</a>
