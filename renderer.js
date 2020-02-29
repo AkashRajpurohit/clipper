@@ -1,5 +1,6 @@
 const audio = new Audio('./assets/sound/beep.mp3')
 const storageLimit = 20
+const maxCharsThatCanBeCopied = 500
 
 class Clipper extends React.Component {
   constructor(props) {
@@ -67,6 +68,16 @@ class Clipper extends React.Component {
 
       // Sync with last copied text in storage
       this.setLastCopiedText(text)
+
+      // Block copying of text which has chars more than maxCharsSpecified
+      if(text.trim().length > maxCharsThatCanBeCopied) {
+        // Open the main window if its is closed
+        window.openMainWindow()
+
+        M.toast({ html: `Cannot copy text of characters more than ${maxCharsThatCanBeCopied}` })
+
+        return
+      }
 
       // Limit the max storage limit
       if (this.state.history.length >= storageLimit) {

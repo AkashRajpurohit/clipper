@@ -96,13 +96,6 @@ ipcMain.on('open-main-window', () => {
   if(!mainWindow.isVisible()) {
     // Show the main window
     mainWindow.show()
-  } else {
-    // Hide it and show it again
-    // Doing this so that if it is overlapped
-    // by some other app then it will show on
-    // top again
-    mainWindow.hide()
-    mainWindow.show()
   }
 })
 
