@@ -1,4 +1,5 @@
 const successAudio = new Audio('./assets/sound/success.mp3')
+const errorAudio = new Audio('./assets/sound/error.mp3')
 const storageLimit = 20
 const maxCharsThatCanBeCopied = 500
 
@@ -15,6 +16,11 @@ class Clipper extends React.Component {
   playSuccessAudio = () => {
     successAudio.currentTime = 0
     successAudio.play()
+  }
+
+  playErrorAudio = () => {
+    errorAudio.currentTime = 0
+    errorAudio.play()
   }
 
   getNewItemId = () => {
@@ -53,6 +59,9 @@ class Clipper extends React.Component {
 
       // Check if showStorageExceedToast is set to true or not
       if (this.state.showStorageExceedToast) {
+        // Play error audio
+        this.playErrorAudio()
+        
         // Open the main window if its is closed
         window.openMainWindow()
 
@@ -74,6 +83,9 @@ class Clipper extends React.Component {
 
       // Block copying of text which has chars more than maxCharsSpecified
       if(text.trim().length > maxCharsThatCanBeCopied) {
+        // Play error audio
+        this.playErrorAudio()
+
         // Open the main window if its is closed
         window.openMainWindow()
 
