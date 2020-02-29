@@ -48,8 +48,6 @@ class Clipper extends React.Component {
 
       // Don't process for empty string
       if (text.trim() === "") {
-        // Clear the clipboard
-        window.clearClipboard()
         return
       }
 
