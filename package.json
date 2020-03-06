@@ -5,10 +5,13 @@
   "main": "main.js",
   "scripts": {
     "start": "electron .",
+    "postinstall": "electron-builder install-app-deps",
     "package": "electron-builder",
     "package:win": "electron-builder -w",
     "package:linux": "electron-builder -l",
-    "package:all": "electron-builder -lw"
+    "package:all": "electron-builder -lw",
+    "deploy:win": "electron-builder -w --publish always",
+    "deploy:linux": "electron-builder -l --publish always"
   },
   "repository": "https://github.com/AkashRajpurohit/clipper",
   "keywords": [
