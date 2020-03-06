@@ -48,25 +48,23 @@ function createWindow() {
     frame: false,
     resizable: false,
     webPreferences: {
-      preload: path.join(__dirname, 'preload.js')
+      preload: path.join(__dirname, 'preload.js'),
+      devTools: process.env.NODE_ENV !== "production"
     }
   })
 
-  tray = new Tray('./assets/icon.png')
+  tray = new Tray(path.join(__dirname, 'assets', 'icon.png'))
 
   tray.setToolTip("Click to access Clipper")
 
   // and load the index.html of the app.
-  mainWindow.loadFile('index.html')
+  mainWindow.loadFile(path.join(__dirname, 'index.html'))
 
   setWindowPosition()
 
   tray.on('click', () => {
     mainWindow.isVisible() ? mainWindow.hide() : mainWindow.show()
   })
-
-  // Open the DevTools.
-  // mainWindow.webContents.openDevTools()
 }
 
 // This method will be called when Electron has finished

@@ -1,7 +1,7 @@
 const successAudio = new Audio('./assets/sound/success.mp3')
 const errorAudio = new Audio('./assets/sound/error.mp3')
 const trashAudio = new Audio('./assets/sound/trash.mp3')
-const storageLimit = 20
+const storageLimit = 10
 const maxCharsThatCanBeCopied = 500
 
 class Clipper extends React.Component {

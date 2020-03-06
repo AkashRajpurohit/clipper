@@ -1,0 +1,35 @@
+appId: "com.akash.clipper-desktop"
+copyright: "Akash Rajpurohit"
+productName: "Clipper"
+
+asar: "true"
+
+publish:
+  - provider: "github"
+    owner: "AkashRajpurohit"
+    repo: "clipper"
+
+directories:
+  output: "release"
+
+files:
+  - "assets/"
+  - "package.json"
+  - "index.html"
+  - "main.js"
+  - "preload.js"
+  - "renderer.js"
+
+win:
+  icon: "assets/app-icon/win/icon.ico"
+  target:
+    - target: "nsis"
+      arch:
+        - "x64"
+
+linux:
+  category: "Utility"
+  target:
+    - "AppImage"
+    - "deb"
+    - "rpm"
