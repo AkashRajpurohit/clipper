@@ -14,7 +14,9 @@
   "keywords": [
     "Electron",
     "Clipper",
-    "Copy to clipboard"
+    "Copy to clipboard",
+    "Clipboard manager",
+    "Clipboard history"
   ],
   "author": "Akash Rajpurohit <akash009.dev@gmail.com>",
   "license": "MIT",
