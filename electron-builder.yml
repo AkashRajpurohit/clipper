@@ -33,3 +33,11 @@ linux:
     - "AppImage"
     - "deb"
     - "rpm"
+
+mac:
+  category: "public.app-category.productivity"
+  gatekeeperAssess: false
+  hardenedRuntime: true
+  target:
+    - "zip"
+    - "dmg"

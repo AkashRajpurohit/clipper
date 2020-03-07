@@ -9,9 +9,11 @@
     "package": "electron-builder",
     "package:win": "electron-builder -w",
     "package:linux": "electron-builder -l",
-    "package:all": "electron-builder -lw",
+    "package:mac": "electron-builder -m",
+    "package:all": "electron-builder -lwm",
     "deploy:win": "electron-builder -w --publish always",
-    "deploy:linux": "electron-builder -l --publish always"
+    "deploy:linux": "electron-builder -l --publish always",
+    "deploy:mac": "electron-builder -m --publish always"
   },
   "repository": "https://github.com/AkashRajpurohit/clipper",
   "keywords": [
