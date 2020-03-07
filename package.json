@@ -1,6 +1,6 @@
 {
   "name": "clipper",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "description": "Save history of all information you copy and use them whenever with a solitary snap",
   "main": "main.js",
   "scripts": {
