@@ -24,3 +24,8 @@
 Clipper is available for Windows, Linux & Mac and can be downloaded from Github releases.
 
 [https://github.com/AkashRajpurohit/clipper/releases](https://github.com/AkashRajpurohit/clipper/releases)
+
+# ❓ FAQs
+1. Tray icon does not show up in linux?
+
+> Install [App Indicator](https://extensions.gnome.org/extension/615/appindicator-support/) for Gnome Tweak tools.
