@@ -34,6 +34,12 @@ function setWindowPosition() {
     windowY = y
   }
 
+  // Top right corner for linux
+  // tray.getBounds() API doesn't work as expected
+  if(os.platform() === "linux") {
+    windowX = width - windowWidth
+  }
+
   // Set window position
   mainWindow.setPosition(windowX, windowY)
 }
@@ -47,6 +53,7 @@ function createWindow() {
     show: false,
     frame: false,
     resizable: false,
+    icon: path.join(__dirname, 'assets', 'icon.png'),
     webPreferences: {
       preload: path.join(__dirname, 'preload.js'),
       devTools: process.env.NODE_ENV !== "production"

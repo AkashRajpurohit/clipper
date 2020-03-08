@@ -1,7 +1,5 @@
 <p align="center">
   <img alt="Clipper" title="Clipper" src="./assets/icon@2x.png">
-
-
 <h1 align="center"> Clipper </h1> <br>
 <p align="center">
    Save history of all information you copy and use them whenever with a solitary snap.
@@ -21,3 +19,8 @@
     * Clearing storage
 * Settings Tab
     * Enable/Disable Sound
+
+# 📥 Download
+Clipper is available for Windows, Linux & Mac and can be downloaded from Github releases.
+
+[https://github.com/AkashRajpurohit/clipper/releases](https://github.com/AkashRajpurohit/clipper/releases)

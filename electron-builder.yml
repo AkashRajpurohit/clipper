@@ -28,14 +28,15 @@ win:
         - "x64"
 
 linux:
+  icon: "assets/app-icon/png/512x512.png"
   category: "Utility"
   target:
-    - "AppImage"
     - "deb"
     - "rpm"
 
 mac:
   category: "public.app-category.productivity"
+  icon: "assets/app-icon/mac/icon.icns"
   gatekeeperAssess: false
   hardenedRuntime: true
   target:
