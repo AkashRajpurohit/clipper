@@ -1,3 +1,6 @@
+# 1.0.3 (09/03/2020)
+* AppImage distribution for Linux
+
 # 1.0.2 (08/03/2020)
 * Linux Debian Bug fixes
 * Install [AppIndicator](https://extensions.gnome.org/extension/615/appindicator-support/) with Gnome tweak tools to ensure that the tray icon shows up
