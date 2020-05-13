@@ -220,62 +220,80 @@ class Clipper extends React.Component {
     window.localStorage.removeItem('clipper:last-copied')
   }
 
+  handleAppQuit = () => {
+    window.quitApp();
+  }
+
+  handleAppMinimize = () => {
+    window.minimizeApp();
+  }
+
   render() {
     return (
-      <div className="container m-tb">
-        <h1 className="center-align">Clipper! 📋</h1>
-        <div className="information">
-          <span onClick={this.handleClearStorage} className="waves-effect waves-light red darken-4 btn"><i class="material-icons right">delete_forever</i>Clear</span>
-          <span onClick={this.handleModalClick} className="waves-effect waves-light modal-trigger btn" ><i className="material-icons">settings</i></span>
-          <h6>Storage Limit: <b>{this.state.history.length} / {storageLimit}</b></h6>
-        </div>
-        {this.state.history.length > 0
-          ? <ul className="collection no-border clickable">
-            {
-              this.state.history.map(({ id, text }) => {
-                return (
-                  <div className="collection-item__div">
-                    <li key={id} data-text={text} className="collection-item hoverable m-tb" onClick={this.handleTextClick}><div>{text}</div></li>
-                    <div className="collection-item__options">
-                      <a onClick={(e) => this.handleDeleteSingleText(e, id)} className="secondary-content red-text text-darken-3"><i class="material-icons">delete</i></a>
-                    </div>
-                  </div>
-                )
-              })
-            }
-          </ul>
-          : <div className="center-align m-tb30">
-            <img height="200" width="200" src="./assets/no_data.svg" alt="no data" />
-          </div>}
-
-          <div id="settings-modal" className="modal bottom-sheet">
-            <div className="modal-content">
-              <h4>Settings</h4>
-              <div className="switch">
-                <span>Enable Audio</span>&nbsp;&nbsp;
-                <label>
-                  <input type="checkbox" checked={this.state.enableAudio} onChange={this.handleAudioSwitch}  />
-                  <span className="lever"></span>
-                </label>
-              </div>
-              <br />
-              <br />
-              <div className="divider"></div>
-                <p><b>Note: </b>You can save text of maximum {maxCharsThatCanBeCopied} characters only.</p>
-            </div>
-            <div className="modal-footer">
-              <a href="#!" className="modal-close waves-effect waves-green btn-flat">Close</a>
-            </div>
+      <React.Fragment>
+        <nav>
+          <div class="nav-wrapper brown darken-3">
+            <a class="brand-logo">Clipper 📋</a>
+            <ul class="right">
+              <li><a onClick={this.handleAppMinimize}><i class="material-icons">remove</i></a></li>
+              <li><a onClick={this.handleAppQuit}><i class="material-icons">clear</i></a></li>
+            </ul>
           </div>
-        <div className="footer-copyright">
-          © {
-            new Date().getFullYear() == "2020"
-              ? "2020"
-              : "2020 - " + new Date().getFullYear()
-          } • Clipper
-          <span className="black-text text-darken-4 right clickable" onClick={this.handleFooterClick}>With 💖 Akash Rajpurohit</span>
+        </nav>
+        <div className="container m-tb">
+          <div className="information">
+            <h6>Storage Limit: <b>{this.state.history.length} / {storageLimit}</b></h6>
+            <span onClick={this.handleClearStorage} className="waves-effect waves-light red darken-4 btn"><i class="material-icons right">delete_forever</i>Clear</span>
+            <span onClick={this.handleModalClick} className="waves-effect waves-light modal-trigger btn" ><i className="material-icons">settings</i></span>
+          </div>
+          {this.state.history.length > 0
+            ? <ul className="collection no-border clickable">
+              {
+                this.state.history.map(({ id, text }) => {
+                  return (
+                    <div className="collection-item__div">
+                      <li key={id} data-text={text} className="collection-item hoverable m-tb" onClick={this.handleTextClick}><div>{text}</div></li>
+                      <div className="collection-item__options">
+                        <a onClick={(e) => this.handleDeleteSingleText(e, id)} className="secondary-content red-text text-darken-3"><i class="material-icons">delete</i></a>
+                      </div>
+                    </div>
+                  )
+                })
+              }
+            </ul>
+            : <div className="center-align m-tb30">
+              <img height="200" width="200" src="./assets/no_data.svg" alt="no data" />
+            </div>}
+
+            <div id="settings-modal" className="modal bottom-sheet">
+              <div className="modal-content">
+                <h4>Settings</h4>
+                <div className="switch">
+                  <span>Enable Audio</span>&nbsp;&nbsp;
+                  <label>
+                    <input type="checkbox" checked={this.state.enableAudio} onChange={this.handleAudioSwitch}  />
+                    <span className="lever"></span>
+                  </label>
+                </div>
+                <br />
+                <br />
+                <div className="divider"></div>
+                  <p><b>Note: </b>You can save text of maximum {maxCharsThatCanBeCopied} characters only.</p>
+              </div>
+              <div className="modal-footer">
+                <a href="#!" className="modal-close waves-effect waves-green btn-flat">Close</a>
+              </div>
+            </div>
+          <div className="footer-copyright">
+            © {
+              new Date().getFullYear() == "2020"
+                ? "2020"
+                : "2020 - " + new Date().getFullYear()
+            } • Clipper
+            <span className="black-text text-darken-4 right clickable" onClick={this.handleFooterClick}>With 💖 Akash Rajpurohit</span>
+          </div>
         </div>
-      </div>
+      </React.Fragment>
     );
   }
 }

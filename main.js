@@ -107,5 +107,15 @@ ipcMain.on('open-main-window', () => {
   mainWindow.setAlwaysOnTop(false)
 })
 
+ipcMain.on('minimize-app', () => {
+  // Hide the main window
+  mainWindow.hide();
+})
+
+ipcMain.on('quit-app', () => {
+  // Quit the app and close all windows
+  app.quit()
+})
+
 // In this file you can include the rest of your app's specific main process
 // code. You can also put them in separate files and require them here.
