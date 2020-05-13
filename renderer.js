@@ -11,7 +11,8 @@ class Clipper extends React.Component {
       history: [],
       interval: -1,
       showStorageExceedToast: false,
-      enableAudio: true
+      enableAudio: true,
+      shouldCapture: true
     }
   }
 
@@ -64,6 +65,10 @@ class Clipper extends React.Component {
     // Start listening for new texts
     this.state.interval = setInterval(() => {
       const text = window.checkClipboard().trim()
+
+      if(!this.state.shouldCapture) {
+        return
+      }
 
       // Don't process for empty string
       if (text.trim() === "") {
@@ -143,7 +148,9 @@ class Clipper extends React.Component {
     this.state.history = this.loadHistory()
 
     // Start the watcher
-    this.startClipboardWatch()
+    if(this.state.shouldCapture) {
+      this.startClipboardWatch()
+    }
   }
 
   componentWillUnmount() {
@@ -199,7 +206,11 @@ class Clipper extends React.Component {
   }
 
   handleAudioSwitch = () => {
-    this.setState((prevState) => ({ enableAudio: !prevState.enableAudio }))
+    this.setState((prevState) => ({ enableAudio: !prevState.enableAudio }));
+  }
+
+  handleClipboardSwitch = () => {
+    this.setState((prevState) => ({ shouldCapture: !prevState.shouldCapture }));
   }
 
   handleClearStorage = () => {
@@ -272,6 +283,14 @@ class Clipper extends React.Component {
                   <span>Enable Audio</span>&nbsp;&nbsp;
                   <label>
                     <input type="checkbox" checked={this.state.enableAudio} onChange={this.handleAudioSwitch}  />
+                    <span className="lever"></span>
+                  </label>
+                </div>
+                <br />
+                <div className="switch">
+                  <span>Capture Clipboard</span>&nbsp;&nbsp;
+                  <label>
+                    <input type="checkbox" checked={this.state.shouldCapture} onChange={this.handleClipboardSwitch}  />
                     <span className="lever"></span>
                   </label>
                 </div>
