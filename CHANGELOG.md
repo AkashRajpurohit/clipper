@@ -1,3 +1,8 @@
+# 1.0.4 (13/05/2020)
+* Added close and minimize app buttons on the main window itself.
+* Currently not building macOS app due to signinig application issues.
+* Allowing only a single instance of clipper to be running at a time in release mode.
+
 # 1.0.3 (09/03/2020)
 * AppImage distribution for Linux
 
