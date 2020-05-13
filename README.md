@@ -21,6 +21,11 @@
     * Enable/Disable Sound
     * Enable/Disable Clipboard Copying (Just in case you want to copy everything all the time)
 
+# Screenshots
+Main Screen                    | List of copied text     | Settings
+:-----------------------------:|:-----------------------:|:--------------:
+![Main Screen](./demos/1.PNG)  | ![List](./demos/2.PNG)  | ![Settings](./demos/3.PNG)
+
 # 📥 Download
 Clipper is available for Windows & Linux and can be downloaded from Github releases.
 
