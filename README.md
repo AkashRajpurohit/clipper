@@ -24,7 +24,7 @@
 # Screenshots
 Main Screen                    | List of copied text     | Settings
 :-----------------------------:|:-----------------------:|:--------------:
-![Main Screen](./demos/1.png)  | ![List](./demos/2.png)  | ![Settings](./demos/3.png)
+![Main Screen](./demos/main.png)  | ![List](./demos/list.png)  | ![Settings](./demos/settings.png)
 
 # 📥 Download
 Clipper is available for Windows & Linux and can be downloaded from Github releases.
