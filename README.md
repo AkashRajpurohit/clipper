@@ -5,7 +5,7 @@
    Save history of all information you copy and use them whenever with a solitary snap.
 </p>
 
-![Github actions](https://github.com/AkashRajpurohit/clipper/workflows/Release/badge.svg) ![Love Open Source](https://badges.frapsoft.com/os/v1/open-source.svg?v=103) ![Stars](https://img.shields.io/github/stars/AkashRajpurohit/clipper) ![Forks](https://img.shields.io/github/forks/AkashRajpurohit/clipper) ![Issues](https://img.shields.io/github/issues/AkashRajpurohit/clipper) ![License](https://img.shields.io/github/license/AkashRajpurohit/clipper) ![Tweet](https://img.shields.io/twitter/url?url=https%3A%2F%2Fgithub.com%2FAkashRajpurohit%2Fclipper)
+![Github actions](https://github.com/AkashRajpurohit/clipper/workflows/Release/badge.svg) ![Love Open Source](https://badges.frapsoft.com/os/v1/open-source.svg?v=103) ![Stars](https://img.shields.io/github/stars/AkashRajpurohit/clipper) ![Forks](https://img.shields.io/github/forks/AkashRajpurohit/clipper) ![Issues](https://img.shields.io/github/issues/AkashRajpurohit/clipper) ![License](https://img.shields.io/github/license/AkashRajpurohit/clipper) ![Visitors](https://visitor-badge.glitch.me/badge?page_id=akashrajpurohit-clipper.visitor-badge) ![Tweet](https://img.shields.io/twitter/url?url=https%3A%2F%2Fgithub.com%2FAkashRajpurohit%2Fclipper)
 
 ## 🙌 Features
 * Save history of any text copied on the system clipboard.
