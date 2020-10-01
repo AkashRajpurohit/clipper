@@ -18,8 +18,8 @@
     * Any error triggered like storage limit exceeded
     * Clearing storage
 * Settings Tab
-    * Enable/Disable Sound
-    * Enable/Disable Clipboard Copying (Just in case you want to copy everything all the time)
+    * Disable/Enable Sound
+    * Disable/Enable Clipboard Copying (Just in case you want to copy everything all the time)
 
 ## Screenshots
 Main Screen                    | List of copied text     | Settings
