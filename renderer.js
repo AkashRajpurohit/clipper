@@ -196,7 +196,7 @@ class Clipper extends React.Component {
   }
 
   handleFooterClick = () => {
-    window.openExternalUrl('https://akashwho.codes')
+    window.openExternalUrl('https://akashrajpurohit.com')
   }
 
   handleModalClick = () => {

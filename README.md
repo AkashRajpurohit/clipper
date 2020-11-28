@@ -46,7 +46,7 @@ Clipper is available for Windows & Linux and can be downloaded from Github relea
 If you encounter any problems feel free to open an [issue](https://github.com/AkashRajpurohit/clipper/issues/new?template=bug_report.md). If you feel the library is missing a feature, please raise a [ticket](https://github.com/AkashRajpurohit/clipper/issues/new?template=feature_request.md) on GitHub and I'll look into it. Pull request are also welcome.
 
 ## Where to find me?
-* [Website](https://akashwho.codes/)
+* [Website](https://akashrajpurohit.com/)
 * [Linkedin](https://www.linkedin.com/in/AkashRajpurohit)
 * [Instagram](https://www.instagram.com/akashwho.codes)
 * [Twitter](https://www.twitter.com/AkashWhoCodes)
