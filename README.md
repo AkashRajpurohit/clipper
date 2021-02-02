@@ -45,6 +45,11 @@ Clipper is available for Windows & Linux and can be downloaded from Github relea
 
 If you encounter any problems feel free to open an [issue](https://github.com/AkashRajpurohit/clipper/issues/new?template=bug_report.md). If you feel the library is missing a feature, please raise a [ticket](https://github.com/AkashRajpurohit/clipper/issues/new?template=feature_request.md) on GitHub and I'll look into it. Pull request are also welcome.
 
+## 👥 Clones
+* [clipper-sciter](https://github.com/GirkovArpa/clipper-sciter) - A sciter based clone of Clipper
+
+> Contact me@akashrajpurohit.com if you have cloned this project and want it to be listed here :)
+
 ## Where to find me?
 * [Website](https://akashrajpurohit.com/)
 * [Linkedin](https://www.linkedin.com/in/AkashRajpurohit)
