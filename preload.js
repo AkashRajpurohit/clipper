@@ -2,6 +2,10 @@
 // It has the same sandbox as a Chrome extension.
 const { remote, ipcRenderer } = require('electron');
 
+const allowedUrls = ['https://akashrajpurohit.com'];
+
+const isValidUrl = url => allowedUrls.includes(url);
+
 const init = () => {
   window.checkClipboard = () => {
     return remote.clipboard.readText();
@@ -12,7 +16,7 @@ const init = () => {
   };
 
   window.openExternalUrl = (url) => {
-    remote.shell.openExternal(url);
+    if (isValidUrl(url)) remote.shell.openExternal(url);
   };
 
   window.clearClipboard = () => {
