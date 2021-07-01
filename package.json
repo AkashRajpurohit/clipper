@@ -26,7 +26,7 @@
   "author": "Akash Rajpurohit <akash009.dev@gmail.com>",
   "license": "MIT",
   "devDependencies": {
-    "electron": "^8.5.2",
+    "electron": "^9.4.0",
     "electron-builder": "^22.3.2"
   }
 }
